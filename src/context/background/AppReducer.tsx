@@ -6,7 +6,6 @@ const appReducer = (
   state: IAppState,
   action: AppAction
 ): IAppState => {
-  console.log("++++++")
   switch (action.type) {
     case Actions.SET_STATE:
       return {
