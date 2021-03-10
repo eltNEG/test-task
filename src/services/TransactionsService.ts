@@ -47,9 +47,7 @@ export class TransactionsService extends BaseService<TransactionsServiceState> {
     public async getListOfTransactions(): Promise<Array<Transaction>>  {
         return new Promise<Array<Transaction>>((resolve) => {
             setTimeout(() => {
-                resolve(
-
-                )
+                resolve([])
             }, 300);
         })
     }

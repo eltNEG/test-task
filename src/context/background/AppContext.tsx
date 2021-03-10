@@ -1,6 +1,14 @@
 import { createContext } from 'react';
 import { Transaction } from '../../services/TransactionsService';
-import { IAppState, initAppState } from './AppState';
+// import { IAppState, initAppState } from './AppState';
+
+export interface IAppState {
+  transactions: Array<Transaction>;
+}
+
+export const initAppState: IAppState =  {
+  transactions: [],
+};
 
 type ContextType = {
   state: IAppState,
