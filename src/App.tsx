@@ -16,7 +16,7 @@ const App = () => {
     // eslint-disable-next-line 
   }, [])
   return (
-    <div className="mt-20 mx-auto shadow-md w-96 h-600px rounded-md">
+    <div className="mt-6 md:mt-20 mx-auto md:shadow-md w-96 h-600px md:rounded-md">
       <Screen screen={screen} setScreen={(_screen) => setScreen(_screen)} />
     </div>
   );

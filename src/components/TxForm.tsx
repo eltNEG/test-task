@@ -14,6 +14,10 @@ const TxForm = ({setScreen}: ITxForm) => {
 
     const handleCancel = () => setScreen(ScreensType.Home)
     const handleNext = async () => {
+        if(!recipient || !amount) {
+            alert("Balance and address fields are required")
+            return
+        }
         if((ethers.BigNumber.from(balance)).lt(ethers.BigNumber.from(ethers.utils.parseEther(amount)))){
             alert('Insufficient balance')
             return
@@ -42,7 +46,7 @@ const TxFormField = ({label, placeholder, value, onChange, className}: ITxFormFi
     return (
         <div className={`w-full ${className}`}>
             <label className="text-gray-600 ">{label}</label>
-            <input className="placeholder-gray-500 w-full pb-1 mt-1 border-b-2 border-gray-700 outline-none focus:outline-none" onChange={onChange} value={value} placeholder={placeholder}/>
+            <input required className="placeholder-gray-500 w-full pb-1 mt-1 border-b-2 border-gray-700 outline-none focus:outline-none" onChange={onChange} value={value} placeholder={placeholder}/>
         </div>
     )
 }
