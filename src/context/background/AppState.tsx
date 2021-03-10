@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import AppContext, {IAppState, initAppState} from './AppContext';
+import AppContext, {initAppState} from './AppContext';
 import AppReducer from './AppReducer';
 import Actions from '../contextActions';
 import { Transaction } from '../../services/TransactionsService';
@@ -24,6 +24,20 @@ const AppState = (props: any) => {
       payload: [...state.transactions, transaction],
     });
   }
+  
+  const setAddress = (address: string) => {
+    dispatch({
+      type: Actions.SET_ADDRESS,
+      payload: address,
+    });
+  }
+  
+  const setBalance = (balance: string) => {
+    dispatch({
+      type: Actions.SET_BALANCE,
+      payload: balance,
+    });
+  }
 
   return (
     <AppContext.Provider
@@ -31,6 +45,8 @@ const AppState = (props: any) => {
         state,
         setState,
         addTransaction,
+        setAddress,
+        setBalance,
       }}
     >
       {props.children}

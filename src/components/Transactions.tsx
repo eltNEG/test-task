@@ -1,43 +1,22 @@
 import ethLogo from '../images/ethLogo.png'
 import SecondaryText from './SecondaryText'
 import {TransactionType} from '../enums'
+import { useStateContext } from '../context/background/AppContext'
+import { ethers } from 'ethers'
 
-const txs = [
-    {
-      txType: TransactionType.SEND_ETHER,
-      txTime: "06-01-2021 19:00",
-      txETHValue: "0.1",
-      txUSDValue: "180"
-    },
-    {
-      txType: TransactionType.RECV_ETHER,
-      txTime: "06-01-2021 19:00",
-      txETHValue: "0.1",
-      txUSDValue: "180"
-    },
-    {
-      txType: TransactionType.SEND_ETHER,
-      txTime: "06-01-2021 19:00",
-      txETHValue: "0.1",
-      txUSDValue: "180"
-    },
-    {
-      txType: TransactionType.RECV_ETHER,
-      txTime: "06-01-2021 19:00",
-      txETHValue: "0.1",
-      txUSDValue: "180"
-    },
-    {
-      txType: TransactionType.SEND_ETHER,
-      txTime: "06-01-2021 19:00",
-      txETHValue: "0.1",
-      txUSDValue: "180"
-    },
-  ]
 const Transactions = () => {
+    const {state} = useStateContext()
+    const {transactions, address}  = state
+
+    const txs = transactions.map(tx => ({
+      txType: tx.from === address ? TransactionType.SEND_ETHER : TransactionType.RECV_ETHER,
+      txTime: tx.timestamp ? (new Date(tx.timestamp*1000)).toLocaleString() : 'unconfirmed',
+      txETHValue: ethers.utils.formatEther(tx.value.toString()),
+      txUSDValue: Number(ethers.utils.formatEther(tx.value.mul(1840))).toFixed(2)
+  }))
     return (
       <div className="h-15.5rem overflow-y-scroll mt-2">
-        {txs.map((tx, index) => <Transaction key={`${tx.txTime+index}`} txType={tx.txType} txTime={tx.txTime} txETHValue={tx.txETHValue} txUSDValue={tx.txUSDValue} />)}
+        {txs.reverse().map((tx: any, index: any) => <Transaction key={`${tx.txTime+index}`} txType={tx.txType} txTime={tx.txTime} txETHValue={tx.txETHValue} txUSDValue={tx.txUSDValue} />)}
       </div>
     )
   }

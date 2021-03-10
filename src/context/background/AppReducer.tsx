@@ -1,12 +1,12 @@
-import Actions, { SetStateAction, SetTransactionAction } from '../contextActions';
-import { IAppState } from './AppContext';
+import Actions, { SetStateAction, SetTransactionAction, SetAddressAction, SetBalanceAction } from '../contextActions';
 
-type AppAction = SetTransactionAction | SetStateAction;
+type AppAction = SetTransactionAction | SetStateAction | SetAddressAction | SetBalanceAction; 
 
 const appReducer = (
   state: IAppState,
   action: AppAction
 ): IAppState => {
+  console.log("++++++")
   switch (action.type) {
     case Actions.SET_STATE:
       return {
@@ -17,6 +17,16 @@ const appReducer = (
       return {
         ...state,
         transactions: action.payload,
+      };
+    case Actions.SET_ADDRESS:
+      return {
+        ...state,
+        address: action.payload,
+      };
+    case Actions.SET_BALANCE:
+      return {
+        ...state,
+        balance: action.payload,
       };
     default:
       return state;

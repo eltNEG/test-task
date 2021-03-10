@@ -9,8 +9,6 @@ interface ICartHeaderProps {
 }
 
 interface IBalanceProps {
-    ethBalance: string
-    usdBalance: string
     setScreen: setScreenFunc
 }
 
@@ -53,3 +51,11 @@ interface ITxFormField {
 interface ITxForm {
     setScreen: setScreenFunc
 }
+
+interface IAppState {
+    transactions: Array<Transaction>;
+    address: string;
+    balance: string;
+}
+
+type setStateFunc = (state: IAppState) => void

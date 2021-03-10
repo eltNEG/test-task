@@ -1,3 +1,4 @@
+import { ethers } from "ethers";
 import { BaseService } from "./infrastructure/BaseService";
 
 /**
@@ -5,10 +6,11 @@ import { BaseService } from "./infrastructure/BaseService";
  * Value is of type `number` for simplification
  */
 export interface Transaction {
-    id: number
+    id: string
     to: string
     from: string
-    value: number 
+    value: ethers.BigNumber
+    timestamp: number
 }
 
 export interface TransactionsServiceState {

@@ -5,7 +5,7 @@ import Transactions from '../components/Transactions'
 const Home = ({setScreen}: IScreen) => {
     return <div className="w-full h-full p-4">
         <Account />
-        <Balance ethBalance={"0.1"} usdBalance={"180"} setScreen={setScreen} />
+        <Balance setScreen={setScreen} />
         <Transactions />
     </div>
 }

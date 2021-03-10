@@ -1,13 +1,28 @@
+import { ethers } from "ethers"
 import { useState } from "react"
+import { useStateContext } from "../context/background/AppContext"
 import { ScreensType } from "../enums"
+import eth from "../ethereum"
 import Row from "./Row"
 
 const TxForm = ({setScreen}: ITxForm) => {
+    const {state, addTransaction} = useStateContext()
+    const {balance, address} = state
+
     const [recipient, setRecipient] = useState("")
     const [amount, setAmount] = useState("")
 
     const handleCancel = () => setScreen(ScreensType.Home)
-    const handleNext = () => setScreen(ScreensType.Success)
+    const handleNext = async () => {
+        if((ethers.BigNumber.from(balance)).lt(ethers.BigNumber.from(ethers.utils.parseEther(amount)))){
+            alert('Insufficient balance')
+            return
+        }
+        const txHash = await eth.sendEther(recipient, amount)
+        addTransaction({from: address, to: recipient, value: ethers.BigNumber.from(ethers.utils.parseEther(amount)), id: txHash, timestamp: 0})
+        setScreen(ScreensType.Success)
+    }
+
     return (
         <div className="flex flex-wrap flex-col justify-between h-600px-4rem pt-4">
             <div className="px-4">
